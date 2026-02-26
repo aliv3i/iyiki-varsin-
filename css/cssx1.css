@@ -1,0 +1,51 @@
+
+body {
+
+    margin: 0 ;
+    height: 100vh;
+    background: radial-gradient(ellipse at bottom, #000002 0%, #840606 70%);
+    overflow: hidden;
+    font-family: 'Dancing Script', cursive;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}.stars, .stars2, .stars3 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-repeat: repeat;
+    animation: moveStars linear infinite;
+
+}
+
+.stars {
+    background-image: radial-gradient(2px 2px at 20px 30px, white, transparent),
+                      radial-gradient(1px 1px at 100px 80px, white, transparent),
+                      radial-gradient(2px 2px at 200px 150px, white, transparent);
+    animation-duration: 100s;
+    opacity: 0.4;
+}
+
+.stars2 {
+    background-image: radial-gradient(1px 1px at 50px 100px, #fff, transparent),
+                      radial-gradient(2px 2px at 150px 200px, #fff, transparent);
+    animation-duration: 160s;
+    opacity: 0.3;
+}
+
+.stars3 {
+    background-image: radial-gradient(2px 2px at 300px 250px, #fff, transparent),
+                      radial-gradient(1px 1px at 400px 300px, #fff, transparent);
+    animation-duration: 220s;
+    opacity: 0.2;
+}
+
+@keyframes moveStars {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+}
