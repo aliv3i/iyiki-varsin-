@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İyi ki Varsın 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: radial-gradient(ellipse at bottom, #cd1205 0%, #000000 70%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Dancing Script', cursive;
+            color: white;
+            position: relative;
+        }
+
+        /* Yıldız katmanları */
+        .stars, .stars2, .stars3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background-repeat: repeat;
+            z-index: -1;
+        }
+        .stars {
+            background-image: radial-gradient(2px 2px at 20px 30px, white, transparent),
+                              radial-gradient(1px 1px at 100px 80px, white, transparent);
+            animation: moveStars 100s linear infinite;
+            opacity: 0.4;
+        }
+        .stars2 {
+            background-image: radial-gradient(1px 1px at 50px 100px, white, transparent);
+            animation: moveStars 160s linear infinite;
+            opacity: 0.3;
+        }
+        .stars3 {
+            background-image: radial-gradient(2px 2px at 300px 250px, white, transparent);
+            animation: moveStars 220s linear infinite;
+            opacity: 0.2;
+        }
+
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-50%); }
+        }
+
+        /* Container - Mobilde taşmayı önlemek için düzenlendi */
+        .container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px; /* Genişliği biraz daralttık */
+            text-align: center;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        /* Başlık - Ekrana sığması için clamp ayarı güncellendi */
+        .title {
+            display: block;
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2rem, 10vw, 3.5rem);
+            background: linear-gradient(135deg, #ffffff, #ff6b9d, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(255, 105, 180, 0.5);
+            margin: 0 0 15px 0;
+            white-space: nowrap; /* Yazının tek satır kalmasını zorlar */
+        }
+
+        /* Fotoğraf çerçevesi */
+        .photo-frame {
+            position: relative;
+            margin-top: 50px;
+            border-radius: 15px;
+            overflow: visible; /* Kalplerin görünmesi için */
+            border: 6px solid #ff4d6d;
+            box-shadow: 0 0 20px rgba(220, 0, 33, 0.5);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            max-height: 200vh; /* Mobilde yazıyı aşağı itmemesi için kısıtlandı */
+            object-fit: cover;
+            display: block;
+            border-radius: 10px;
+        }
+
+        /* Çerçeve kalpleri */
+        .photo-frame::before,
+        .photo-frame::after {
+            content: '❤️';
+            position: absolute;
+            font-size: 1.5rem;
+            animation: heartBeat 2s ease-in-out infinite;
+            z-index: 11;
+        }
+        .photo-frame::before { top: -20px; left: -10px; }
+        .photo-frame::after { bottom: -20px; right: -10px; }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+        }
+
+        /* Kayan kalpler ve Yıldızlar */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            animation: float 6s linear infinite;
+            z-index: 1;
+        }
+        @keyframes float {
+            0% { transform: translateY(110vh) scale(1); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.5); }
+        }
+
+        /* Müzik butonu */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff1744, #ff6b9d);
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            box-shadow: 0 0 20px rgba(255,23,68,0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.3s;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+
+<div class="container">
+    <h1 class="title">İyi ki Varsın 💖</h1>
+    <div class="photo-frame">
+        <img src="image.jpg" alt="Sevdiğim">
+    </div>
+</div>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+<button class="music-btn" id="musicBtn">🎵</button>
+
+<script>
+    // Kayan Kalpler
+    setInterval(function() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+    }, 700);
+
+    // Parlayan Yıldızlar
+    setInterval(function() {
+        const sparkle = document.createElement("div");
+        sparkle.innerHTML = "✨";
+        sparkle.style.position = "fixed";
+        sparkle.style.left = Math.random() * 100 + "vw";
+        sparkle.style.top = Math.random() * 100 + "vh";
+        sparkle.style.fontSize = (Math.random() * 10 + 10) + "px";
+        sparkle.style.animation = "fadeOut 3s linear forwards";
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 3000);
+    }, 1000);
+
+    // Müzik Kontrolü
+    const bgMusic = document.getElementById('bgMusic');
+    const musicBtn = document.getElementById('musicBtn');
+    musicBtn.addEventListener('click', () => {
+        if(bgMusic.paused){
+            bgMusic.play();
+            musicBtn.innerText = "🔊";
+        } else {
+            bgMusic.pause();
+            musicBtn.innerText = "🎵";
+        }
+    });
+</script>
+
+</body>
+</html>
